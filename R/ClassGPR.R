@@ -457,8 +457,7 @@ setClass(
 #' @name readGPR
 #' @rdname readGPR
 # @aliases readGPR-methods
-setMethod("readGPR", "character", function(fPath, desc = "", 
-          coordfile = NULL, crs = "", intfile = NULL){
+setMethod("readGPR", "character", function(fPath, desc = "", coordfile = NULL, crs = "", intfile = NULL){
     ext <- .fExt(fPath)
     # DT1
     if(file.exists(fPath)){
@@ -520,6 +519,8 @@ setMethod("readGPR", "character", function(fPath, desc = "",
           y@filepath <- fPath
           return(y)
         }
+      }else if("segy" == tolower(ext) || "sgy" == tolower(ext)){
+        stop(paste0("reading segy file"))
       }else{
         stop(paste0("Problem with the file extension.",
                     "Should be either '.DT1' or '.rds'\n"))
